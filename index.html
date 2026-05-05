@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Void 00</title>
+  <title>VoidCipher</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
   <style>
     * {
@@ -16,23 +16,90 @@
 
     body {
       height: 100vh;
+      background: radial-gradient(circle at center, #050505, #000);
       display: flex;
       justify-content: center;
       align-items: center;
-      background: #000;
-      color: #fff;
-      font-family: 'Orbitron', sans-serif;
+      font-family: 'Share Tech Mono', monospace;
+      color: #00ffcc;
+      overflow: hidden;
     }
 
-    h1 {
-      font-size: 60px;
-      letter-spacing: 5px;
+    .container {
+      text-align: center;
+      padding: 30px;
+    }
+
+    .glitch {
+      font-size: 20px;
+      line-height: 1.7;
+      max-width: 850px;
+      position: relative;
+      letter-spacing: 0.5px;
+      text-shadow: 0 0 8px rgba(0,255,200,0.3);
+      animation: pulse 4s infinite;
+    }
+
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+      opacity: 0.4;
+    }
+
+    .glitch::before {
+      color: #ff0055;
+      transform: translate(-1px, 0);
+      animation: glitchA 3s infinite linear alternate-reverse;
+    }
+
+    .glitch::after {
+      color: #00aaff;
+      transform: translate(1px, 0);
+      animation: glitchB 2.5s infinite linear alternate-reverse;
+    }
+
+    @keyframes glitchA {
+      0% { clip-path: inset(0 0 85% 0); }
+      50% { clip-path: inset(35% 0 35% 0); }
+      100% { clip-path: inset(75% 0 10% 0); }
+    }
+
+    @keyframes glitchB {
+      0% { clip-path: inset(70% 0 15% 0); }
+      50% { clip-path: inset(10% 0 60% 0); }
+      100% { clip-path: inset(0 0 90% 0); }
+    }
+
+    @keyframes pulse {
+      0%,100% { opacity: 1; }
+      50% { opacity: 0.85; }
+    }
+
+    .tag {
+      margin-top: 18px;
+      font-size: 11px;
+      letter-spacing: 3px;
+      opacity: 0.5;
     }
   </style>
 </head>
+
 <body>
 
-  <h1>VOID 00</h1>
+  <div class="container">
+
+    <div class="glitch"
+         data-text="The protocol whispered compliance while denying its own syntax: VoidCipher">
+      The protocol whispered compliance while denying its own syntax: VoidCipher
+    </div>
+
+    <div class="tag">// encrypted signal stable //</div>
+
+  </div>
 
 </body>
 </html>
