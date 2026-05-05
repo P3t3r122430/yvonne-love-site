@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Yvonne</title>
 
-  <!-- Elegant feminine + clean font combo -->
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 
   <style>
@@ -37,7 +37,7 @@
       z-index: -1;
     }
 
-    /* main container */
+    /* main card */
     .card {
       width: 100%;
       max-width: 750px;
@@ -81,33 +81,48 @@
       50% { opacity: 0; }
     }
 
-    /* gallery (5 images styled properly) */
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 10px;
+    /* IG STYLE SLIDESHOW */
+    .ig-gallery {
+      margin-top: 20px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    .gallery img {
+    .ig-gallery img {
       width: 100%;
-      height: 130px;
+      height: 240px;
       object-fit: cover;
-      border-radius: 14px;
-      transition: 0.3s ease;
-      opacity: 0.88;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      border-radius: 16px;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.6);
+      transition: opacity 0.5s ease;
     }
 
-    .gallery img:hover {
-      transform: scale(1.05);
-      opacity: 1;
+    /* dots */
+    .ig-dots {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+      transition: 0.3s;
+    }
+
+    .dot.active {
+      background: #fff;
+      transform: scale(1.2);
     }
 
     /* mobile */
     @media (max-width: 600px) {
-      .gallery {
-        grid-template-columns: repeat(2, 1fr);
+      .ig-gallery img {
+        height: 200px;
       }
     }
   </style>
@@ -115,30 +130,35 @@
 
 <body>
 
-  <!-- background image -->
+  <!-- background -->
   <img src="img1.jpg" class="bg" alt="background">
 
   <div class="card">
     <h1>Yvonne</h1>
-    <div class="subtitle">soft thoughts, quiet feelings</div>
+    <div class="subtitle">soft thoughts, quiet presence</div>
 
     <div id="msg"></div>
 
-    <!-- 5 images -->
-    <div class="gallery">
-      <img src="img1.jpg">
-      <img src="img2.jpg">
-      <img src="img3.jpg">
-      <img src="img4.jpg">
-      <img src="img5.jpg">
+    <!-- Instagram-style gallery -->
+    <div class="ig-gallery">
+      <img id="ig-slide" src="img1.jpg" alt="gallery">
+
+      <div class="ig-dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
     </div>
   </div>
 
   <script>
+    /* ===== CINEMATIC MESSAGES ===== */
     const messages = [
-      "Some presence doesn’t need attention to be felt.",
-      "You feel like calm that stays without effort.",
-      "Not loud, not forced… just naturally noticeable.",
+      "Some people don’t arrive loudly… they just stay in memory.",
+      "You feel like calm that doesn’t need explanation.",
+      "Nothing forced, nothing loud… just naturally noticeable.",
       "Some people become a feeling, not just a memory.",
       "You don’t try to stand out, yet you do.",
       "There’s something quietly different about you.",
@@ -154,14 +174,15 @@
       if (index === 0) el.innerHTML = "";
 
       if (index < text.length) {
-        el.innerHTML = text.substring(0, index + 1) + "<span class='cursor'></span>";
+        el.innerHTML =
+          text.substring(0, index + 1) +
+          "<span class='cursor'></span>";
         setTimeout(() => type(text, index + 1), 45);
       }
     }
 
     function loop() {
       type(messages[i]);
-
       i = (i + 1) % messages.length;
 
       let delay = 6000;
@@ -171,6 +192,55 @@
     }
 
     loop();
+
+    /* ===== IG SLIDESHOW ===== */
+    const images = ["img1.jpg","img2.jpg","img3.jpg","img4.jpg","img5.jpg"];
+
+    let current = 0;
+    const imgEl = document.getElementById("ig-slide");
+    const dots = document.querySelectorAll(".dot");
+
+    function updateSlide(index) {
+      imgEl.style.opacity = 0;
+
+      setTimeout(() => {
+        imgEl.src = images[index];
+        imgEl.style.opacity = 1;
+      }, 300);
+
+      dots.forEach(d => d.classList.remove("active"));
+      dots[index].classList.add("active");
+    }
+
+    function nextSlide() {
+      current = (current + 1) % images.length;
+      updateSlide(current);
+    }
+
+    let interval = setInterval(nextSlide, 3500);
+
+    /* pause on hover */
+    imgEl.addEventListener("mouseenter", () => clearInterval(interval));
+    imgEl.addEventListener("mouseleave", () => {
+      interval = setInterval(nextSlide, 3500);
+    });
+
+    /* swipe support */
+    let startX = 0;
+
+    imgEl.addEventListener("touchstart", e => {
+      startX = e.touches[0].clientX;
+    });
+
+    imgEl.addEventListener("touchend", e => {
+      let endX = e.changedTouches[0].clientX;
+
+      if (startX - endX > 50) nextSlide();
+      if (endX - startX > 50) {
+        current = (current - 1 + images.length) % images.length;
+        updateSlide(current);
+      }
+    });
   </script>
 
 </body>
