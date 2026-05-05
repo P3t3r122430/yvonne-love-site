@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yvonne ❤️</title>
+
+  <!-- Soft aesthetic fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+      color: #fff;
+      font-family: 'Quicksand', sans-serif;
+      background: #000;
+      position: relative;
+    }
+
+    /* Background */
+    .background-img {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    /* Overlay */
+    .overlay {
+      background: rgba(0,0,0,0.45);
+      padding: 25px 35px;
+      border-radius: 15px;
+      backdrop-filter: blur(6px);
+      z-index: 2;
+    }
+
+    h1 {
+      font-family: 'Parisienne', cursive;
+      font-size: 75px;
+      margin-bottom: 10px;
+    }
+
+    #static-message {
+      font-family: 'Parisienne', cursive;
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    #changing-message {
+      font-size: 26px;
+      min-height: 60px;
+    }
+
+    /* Typewriter cursor */
+    .cursor {
+      display: inline-block;
+      width: 2px;
+      background: #fff;
+      animation: blink 0.8s infinite;
+      margin-left: 3px;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    /* Hearts */
+    .hearts {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .heart {
+      position: absolute;
+      color: #ff3366;
+      animation: floatUp 4s linear forwards;
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(100vh);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(-10vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Background -->
+  <img src="yvonne.jpg" class="background-img" alt="Yvonne">
+
+  <div class="overlay">
+    <h1>Yvonne ❤️</h1>
+    <p id="static-message">There’s just something about you 💭</p>
+    <p id="changing-message"></p>
+  </div>
+
+  <div class="hearts"></div>
+
+  <script>
+    const messages = [
+      "You have a way of standing out without trying ✨",
+      "There’s a calm confidence in you… it shows 🌹",
+      "Your smile carries a little magic with it ☀️",
+      "Some people just have a presence… you’re one of them 💫",
+      "You make simple moments feel different 🌸",
+      "The way you carry yourself is rare 🔥",
+      "You don’t even try… and still get noticed 👀",
+      "There’s something naturally captivating about you 💎",
+      "You leave an impression without saying much 💭",
+      "Yeah… you’re something else ✨"
+    ];
+
+    let index = 0;
+    let charIndex = 0;
+    let currentText = "";
+    const typingSpeed = 45;
+
+    const messageEl = document.getElementById("changing-message");
+
+    function typeMessage() {
+      messageEl.innerHTML = currentText.substring(0, charIndex) + "<span class='cursor'></span>";
+
+      if (charIndex < currentText.length) {
+        charIndex++;
+        setTimeout(typeMessage, typingSpeed);
+      }
+    }
+
+    function showNextMessage() {
+      currentText = messages[index];
+      charIndex = 0;
+      messageEl.innerHTML = "";
+      typeMessage();
+
+      index = (index + 1) % messages.length;
+    }
+
+    // Auto-play messages
+    showNextMessage();
+    setInterval(showNextMessage, 6000);
+
+    // Floating hearts
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerHTML = "❤";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = (Math.random() * 20 + 12) + "px";
+      document.querySelector(".hearts").appendChild(heart);
+
+      setTimeout(() => heart.remove(), 4000);
+    }
+
+    setInterval(createHeart, 700);
+  </script>
+
+</body>
+</html>
