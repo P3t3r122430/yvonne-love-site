@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VoidCipher</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Yvonne</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 
   <style>
     * {
@@ -15,91 +15,237 @@
     }
 
     body {
-      height: 100vh;
-      background: radial-gradient(circle at center, #050505, #000);
+      min-height: 100vh;
+      font-family: 'Montserrat', sans-serif;
+      background: #000;
+      color: #fff;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-family: 'Share Tech Mono', monospace;
-      color: #00ffcc;
-      overflow: hidden;
+      padding: 20px;
     }
 
-    .container {
-      text-align: center;
-      padding: 30px;
-    }
-
-    .glitch {
-      font-size: 20px;
-      line-height: 1.7;
-      max-width: 850px;
-      position: relative;
-      letter-spacing: 0.5px;
-      text-shadow: 0 0 8px rgba(0,255,200,0.3);
-      animation: pulse 4s infinite;
-    }
-
-    .glitch::before,
-    .glitch::after {
-      content: attr(data-text);
-      position: absolute;
-      left: 0;
+    /* background */
+    .bg {
+      position: fixed;
+      inset: 0;
       width: 100%;
-      overflow: hidden;
-      opacity: 0.4;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.55);
+      z-index: -1;
     }
 
-    .glitch::before {
-      color: #ff0055;
-      transform: translate(-1px, 0);
-      animation: glitchA 3s infinite linear alternate-reverse;
+    /* MAIN CARD FIXED LAYOUT */
+    .card {
+      width: 100%;
+      max-width: 750px;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 35px;
+
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.7);
     }
 
-    .glitch::after {
-      color: #00aaff;
-      transform: translate(1px, 0);
-      animation: glitchB 2.5s infinite linear alternate-reverse;
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 70px;
     }
 
-    @keyframes glitchA {
-      0% { clip-path: inset(0 0 85% 0); }
-      50% { clip-path: inset(35% 0 35% 0); }
-      100% { clip-path: inset(75% 0 10% 0); }
+    .subtitle {
+      font-size: 16px;
+      opacity: 0.75;
     }
 
-    @keyframes glitchB {
-      0% { clip-path: inset(70% 0 15% 0); }
-      50% { clip-path: inset(10% 0 60% 0); }
-      100% { clip-path: inset(0 0 90% 0); }
+    /* message area */
+    #msg {
+      font-size: 22px;
+      min-height: 80px;
+      line-height: 1.6;
+
+      position: relative;
+      z-index: 2;
     }
 
-    @keyframes pulse {
-      0%,100% { opacity: 1; }
-      50% { opacity: 0.85; }
+    .cursor {
+      display: inline-block;
+      width: 2px;
+      background: #fff;
+      animation: blink 0.8s infinite;
+      margin-left: 3px;
     }
 
-    .tag {
-      margin-top: 18px;
-      font-size: 11px;
-      letter-spacing: 3px;
-      opacity: 0.5;
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    /* IG SLIDESHOW */
+    .ig-gallery {
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+
+      position: relative;
+      z-index: 1;
+    }
+
+    .ig-gallery img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      border-radius: 16px;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.6);
+      transition: opacity 0.5s ease;
+    }
+
+    /* dots */
+    .ig-dots {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+      transition: 0.3s;
+    }
+
+    .dot.active {
+      background: #fff;
+      transform: scale(1.2);
+    }
+
+    /* mobile */
+    @media (max-width: 600px) {
+      .ig-gallery img {
+        height: 200px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <div class="container">
+  <!-- background -->
+  <img src="img1.jpg" class="bg" alt="background">
 
-    <div class="glitch"
-         data-text="The protocol whispered compliance while denying its own syntax: VoidCipher">
-      The protocol whispered compliance while denying its own syntax: VoidCipher
+  <div class="card">
+    <h1>Yvonne</h1>
+    <div class="subtitle">soft thoughts, quiet presence</div>
+
+    <div id="msg"></div>
+
+    <!-- Instagram-style slideshow -->
+    <div class="ig-gallery">
+      <img id="ig-slide" src="img1.jpg" alt="gallery">
+
+      <div class="ig-dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
     </div>
-
-    <div class="tag">// encrypted signal stable //</div>
-
   </div>
+
+  <script>
+    /* MESSAGE FLOW */
+    const messages = [
+      "Some people don’t arrive loudly… they just stay in memory.",
+      "You feel like calm that doesn’t need explanation.",
+      "Nothing forced, nothing loud… just naturally noticeable.",
+      "Some people become a feeling, not just a memory.",
+      "You don’t try to stand out, yet you do.",
+      "There’s something quietly different about you.",
+      "It’s not easy to explain… but it’s easy to feel.",
+      "And somehow… you stay in thought longer than expected.",
+      "Yeah… you’re one of those."
+    ];
+
+    let i = 0;
+    const el = document.getElementById("msg");
+
+    function type(text, index = 0) {
+      if (index === 0) el.innerHTML = "";
+
+      if (index < text.length) {
+        el.innerHTML =
+          text.substring(0, index + 1) +
+          "<span class='cursor'></span>";
+        setTimeout(() => type(text, index + 1), 45);
+      }
+    }
+
+    function loop() {
+      type(messages[i]);
+      i = (i + 1) % messages.length;
+
+      let delay = 6000;
+      if (i > 3) delay = 7000;
+
+      setTimeout(loop, delay);
+    }
+
+    loop();
+
+    /* SLIDESHOW */
+    const images = ["img1.jpg","img2.jpg","img3.jpg","img4.jpg","img5.jpg"];
+
+    let current = 0;
+    const imgEl = document.getElementById("ig-slide");
+    const dots = document.querySelectorAll(".dot");
+
+    function updateSlide(index) {
+      imgEl.style.opacity = 0;
+
+      setTimeout(() => {
+        imgEl.src = images[index];
+        imgEl.style.opacity = 1;
+      }, 300);
+
+      dots.forEach(d => d.classList.remove("active"));
+      dots[index].classList.add("active");
+    }
+
+    function nextSlide() {
+      current = (current + 1) % images.length;
+      updateSlide(current);
+    }
+
+    let interval = setInterval(nextSlide, 3500);
+
+    imgEl.addEventListener("mouseenter", () => clearInterval(interval));
+    imgEl.addEventListener("mouseleave", () => {
+      interval = setInterval(nextSlide, 3500);
+    });
+
+    let startX = 0;
+
+    imgEl.addEventListener("touchstart", e => {
+      startX = e.touches[0].clientX;
+    });
+
+    imgEl.addEventListener("touchend", e => {
+      let endX = e.changedTouches[0].clientX;
+
+      if (startX - endX > 50) nextSlide();
+      if (endX - startX > 50) {
+        current = (current - 1 + images.length) % images.length;
+        updateSlide(current);
+      }
+    });
+  </script>
 
 </body>
 </html>
