@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Yvonne ❤️</title>
 
-  <!-- Soft aesthetic fonts -->
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet">
 
   <style>
@@ -21,7 +21,7 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      overflow: hidden;
+      overflow-x: hidden;
       color: #fff;
       font-family: 'Quicksand', sans-serif;
       background: #000;
@@ -38,13 +38,16 @@
       z-index: -1;
     }
 
-    /* Overlay */
+    /* Main card */
     .overlay {
-      background: rgba(0,0,0,0.45);
-      padding: 25px 35px;
-      border-radius: 15px;
-      backdrop-filter: blur(6px);
-      z-index: 2;
+      background: rgba(0, 0, 0, 0.55);
+      padding: 35px 45px;
+      border-radius: 18px;
+      backdrop-filter: blur(10px);
+      max-width: 650px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
     }
 
     h1 {
@@ -55,13 +58,14 @@
 
     #static-message {
       font-family: 'Parisienne', cursive;
-      font-size: 32px;
-      margin-bottom: 10px;
+      font-size: 30px;
+      margin-bottom: 15px;
     }
 
     #changing-message {
-      font-size: 26px;
-      min-height: 70px;
+      font-size: 24px;
+      min-height: 80px;
+      line-height: 1.6;
     }
 
     /* Cursor */
@@ -77,29 +81,36 @@
       50% { opacity: 0; }
     }
 
-    /* Hearts */
-    .hearts {
-      position: fixed;
+    /* Gallery */
+    .gallery {
+      margin-top: 25px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .gallery img {
       width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 12px;
+      opacity: 0.85;
+      transition: 0.3s ease;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
     }
 
-    .heart {
-      position: absolute;
-      color: #ff3366;
-      animation: floatUp 4s linear forwards;
+    .gallery img:hover {
+      transform: scale(1.05);
+      opacity: 1;
     }
 
-    @keyframes floatUp {
-      from {
-        transform: translateY(100vh);
-        opacity: 1;
-      }
-      to {
-        transform: translateY(-10vh);
-        opacity: 0;
+    /* Mobile */
+    @media (max-width: 600px) {
+      .gallery {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
   </style>
@@ -114,33 +125,30 @@
     <h1>Yvonne ❤️</h1>
     <p id="static-message">There’s just something about you 💭</p>
     <p id="changing-message"></p>
-  </div>
 
-  <div class="hearts"></div>
+    <!-- Gallery -->
+    <div class="gallery">
+      <img src="img1.jpg">
+      <img src="img2.jpg">
+      <img src="img3.jpg">
+      <img src="img4.jpg">
+      <img src="img5.jpg">
+    </div>
+  </div>
 
   <script>
     const messages = [
-      // calm opening
       "Some people just carry a certain calm about them 🌿",
       "It’s the way you show up… quietly noticeable ✨",
       "You don’t try to be seen, but you still are 👀",
-
-      // curiosity phase
       "There’s something about your presence that lingers 💭",
       "Hard to explain… but it stays in the mind 🌙",
       "You feel different without trying to be different 🌸",
-
-      // depth phase
       "Not everything needs words to be understood 🤍",
       "Some energy just fits without reason 🌊",
       "You leave impressions that don’t fade quickly 💎",
-
-      // reflection phase
-      "It’s strange how certain people stay in thought longer than expected 😌",
       "You feel like one of those rare, quiet constants 🌿",
-      "Even silence feels different around the right kind of presence ✨",
-
-      // closing impact
+      "Even silence feels different around the right presence ✨",
       "Some things aren’t loud… they’re just real 🌹",
       "Yeah… you’re one of those"
     ];
@@ -167,7 +175,6 @@
       type();
 
       let delay = 6000;
-
       if (index >= 3 && index < 8) delay = 7000;
       if (index >= 8) delay = 8000;
 
@@ -177,20 +184,6 @@
     }
 
     showMessage();
-
-    // hearts
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.classList.add("heart");
-      heart.innerHTML = "❤";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.fontSize = (Math.random() * 20 + 12) + "px";
-      document.querySelector(".hearts").appendChild(heart);
-
-      setTimeout(() => heart.remove(), 4000);
-    }
-
-    setInterval(createHeart, 700);
   </script>
 
 </body>
