@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Yvonne</title>
 
-  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 
   <style>
@@ -37,14 +36,19 @@
       z-index: -1;
     }
 
-    /* main card */
+    /* MAIN CARD FIXED LAYOUT */
     .card {
       width: 100%;
       max-width: 750px;
       background: rgba(0,0,0,0.55);
       backdrop-filter: blur(12px);
       border-radius: 20px;
-      padding: 30px;
+      padding: 35px;
+
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
       text-align: center;
       box-shadow: 0 20px 60px rgba(0,0,0,0.7);
     }
@@ -52,21 +56,21 @@
     h1 {
       font-family: 'Great Vibes', cursive;
       font-size: 70px;
-      margin-bottom: 5px;
     }
 
     .subtitle {
       font-size: 16px;
       opacity: 0.75;
-      margin-bottom: 20px;
     }
 
-    /* message */
+    /* message area */
     #msg {
       font-size: 22px;
       min-height: 80px;
       line-height: 1.6;
-      margin-bottom: 25px;
+
+      position: relative;
+      z-index: 2;
     }
 
     .cursor {
@@ -81,12 +85,14 @@
       50% { opacity: 0; }
     }
 
-    /* IG STYLE SLIDESHOW */
+    /* IG SLIDESHOW */
     .ig-gallery {
-      margin-top: 20px;
       max-width: 500px;
       margin-left: auto;
       margin-right: auto;
+
+      position: relative;
+      z-index: 1;
     }
 
     .ig-gallery img {
@@ -139,7 +145,7 @@
 
     <div id="msg"></div>
 
-    <!-- Instagram-style gallery -->
+    <!-- Instagram-style slideshow -->
     <div class="ig-gallery">
       <img id="ig-slide" src="img1.jpg" alt="gallery">
 
@@ -154,7 +160,7 @@
   </div>
 
   <script>
-    /* ===== CINEMATIC MESSAGES ===== */
+    /* MESSAGE FLOW */
     const messages = [
       "Some people don’t arrive loudly… they just stay in memory.",
       "You feel like calm that doesn’t need explanation.",
@@ -193,7 +199,7 @@
 
     loop();
 
-    /* ===== IG SLIDESHOW ===== */
+    /* SLIDESHOW */
     const images = ["img1.jpg","img2.jpg","img3.jpg","img4.jpg","img5.jpg"];
 
     let current = 0;
@@ -219,13 +225,11 @@
 
     let interval = setInterval(nextSlide, 3500);
 
-    /* pause on hover */
     imgEl.addEventListener("mouseenter", () => clearInterval(interval));
     imgEl.addEventListener("mouseleave", () => {
       interval = setInterval(nextSlide, 3500);
     });
 
-    /* swipe support */
     let startX = 0;
 
     imgEl.addEventListener("touchstart", e => {
