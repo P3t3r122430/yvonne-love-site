@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -178,4 +179,185 @@
   </script>
 
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yvonne ❤️</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+      color: #fff;
+      font-family: 'Playfair Display', serif;
+      position: relative;
+      background: #000;
+    }
+
+    /* Background Image */
+    .background-img {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    /* Overlay */
+    .overlay {
+      position: relative;
+      z-index: 2;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 25px 35px;
+      border-radius: 15px;
+      backdrop-filter: blur(5px);
+    }
+
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 70px;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+    }
+
+    #static-message {
+      font-family: 'Great Vibes', cursive;
+      font-size: 34px;
+      margin-bottom: 10px;
+    }
+
+    #changing-message {
+      font-size: 26px;
+      max-width: 90%;
+    }
+
+    /* Fade Animation */
+    .fade {
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Hearts */
+    .hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .heart {
+      position: absolute;
+      color: #ff3366;
+      animation: floatUp 5s linear forwards;
+      opacity: 0.8;
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(100vh) scale(1);
+        opacity: 0.8;
+      }
+      to {
+        transform: translateY(-10vh) scale(0.5);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Background -->
+  <img src="yvonne.jpg" alt="Yvonne" class="background-img">
+
+  <!-- Content -->
+  <div class="overlay">
+    <h1>Yvonne ❤️</h1>
+    <p id="static-message">There’s just something about you 💭</p>
+    <p id="changing-message" class="fade">You have a way of standing out without trying ✨</p>
+  </div>
+
+  <!-- Hearts -->
+  <div class="hearts"></div>
+
+  <script>
+    const messages = [
+      "You have a way of standing out without trying ✨",
+      "There’s a calm confidence in you… it shows 🌹",
+      "Your smile carries a little magic with it ☀️",
+      "Some people just have a presence… you’re one of them 💫",
+      "You make simple moments feel different 🌸",
+      "There’s something effortless about your beauty 💎",
+      "The way you carry yourself? yeah… it’s rare 🔥",
+      "You don’t even try… and still get noticed 👀",
+      "There’s a softness and strength in you 🤍",
+      "You leave an impression without saying much 💭",
+      "Not everything needs words… some things just feel right ✨",
+      "There’s a kind of glow you can’t fake 🌟",
+      "You make things feel a little more alive 🌍",
+      "It’s the little things about you… they add up 💫",
+      "Some vibes are just different… yours stands out 🌹",
+      "You’re quietly unforgettable 💭",
+      "There’s a reason you stay on someone’s mind ☀️",
+      "You don’t chase attention… it finds you anyway 👀",
+      "There’s something naturally captivating about you 💎",
+      "Yeah… you’re something else ✨"
+    ];
+
+    let index = 0;
+    const messageEl = document.getElementById("changing-message");
+
+    setInterval(() => {
+      index = (index + 1) % messages.length;
+      messageEl.textContent = messages[index];
+
+      messageEl.classList.remove("fade");
+      void messageEl.offsetWidth;
+      messageEl.classList.add("fade");
+
+    }, 5000);
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+      heart.textContent = "❤";
+
+      document.querySelector(".hearts").appendChild(heart);
+
+      setTimeout(() => heart.remove(), 5000);
+    }
+
+    setInterval(createHeart, 800);
+  </script>
+
+</body>
+>>>>>>> 9254496cf049b81f89a3a4f40c7b3c45d17a0cfd
 </html>
