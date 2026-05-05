@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Yvonne ❤️</title>
+  <title>Yvonne</title>
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet">
+  <!-- Elegant feminine + clean font combo -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 
   <style>
     * {
@@ -17,73 +17,71 @@
 
     body {
       min-height: 100vh;
+      font-family: 'Montserrat', sans-serif;
+      background: #000;
+      color: #fff;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-family: 'Quicksand', sans-serif;
-      color: #fff;
-      background: #000;
-      overflow-x: hidden;
+      padding: 20px;
     }
 
-    /* Background image */
-    .background-img {
+    /* background */
+    .bg {
       position: fixed;
       inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
+      filter: brightness(0.55);
       z-index: -1;
-      filter: brightness(0.7);
     }
 
-    /* Main card */
-    .overlay {
-      width: 92%;
-      max-width: 700px;
+    /* main container */
+    .card {
+      width: 100%;
+      max-width: 750px;
       background: rgba(0,0,0,0.55);
-      backdrop-filter: blur(10px);
-      padding: 35px;
-      border-radius: 18px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 30px;
       text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.7);
     }
 
     h1 {
-      font-family: 'Parisienne', cursive;
+      font-family: 'Great Vibes', cursive;
       font-size: 70px;
-      margin-bottom: 10px;
+      margin-bottom: 5px;
     }
 
-    #static-message {
-      font-family: 'Parisienne', cursive;
-      font-size: 28px;
-      margin-bottom: 15px;
-      opacity: 0.9;
+    .subtitle {
+      font-size: 16px;
+      opacity: 0.75;
+      margin-bottom: 20px;
     }
 
-    #changing-message {
+    /* message */
+    #msg {
       font-size: 22px;
       min-height: 80px;
       line-height: 1.6;
       margin-bottom: 25px;
     }
 
-    /* Cursor */
     .cursor {
       display: inline-block;
       width: 2px;
-      height: 18px;
       background: #fff;
-      margin-left: 4px;
       animation: blink 0.8s infinite;
+      margin-left: 3px;
     }
 
     @keyframes blink {
       50% { opacity: 0; }
     }
 
-    /* Gallery */
+    /* gallery (5 images styled properly) */
     .gallery {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -93,11 +91,12 @@
 
     .gallery img {
       width: 100%;
-      height: 120px;
+      height: 130px;
       object-fit: cover;
-      border-radius: 12px;
+      border-radius: 14px;
       transition: 0.3s ease;
-      opacity: 0.9;
+      opacity: 0.88;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
     }
 
     .gallery img:hover {
@@ -105,7 +104,7 @@
       opacity: 1;
     }
 
-    /* Mobile */
+    /* mobile */
     @media (max-width: 600px) {
       .gallery {
         grid-template-columns: repeat(2, 1fr);
@@ -116,64 +115,62 @@
 
 <body>
 
-  <!-- Background -->
-  <img src="img1.jpg" class="background-img" alt="background">
+  <!-- background image -->
+  <img src="img1.jpg" class="bg" alt="background">
 
-  <div class="overlay">
-    <h1>Yvonne ❤️</h1>
-    <div id="static-message">There’s just something about you</div>
-    <div id="changing-message"></div>
+  <div class="card">
+    <h1>Yvonne</h1>
+    <div class="subtitle">soft thoughts, quiet feelings</div>
 
-    <!-- Gallery -->
+    <div id="msg"></div>
+
+    <!-- 5 images -->
     <div class="gallery">
-      <img src="img1.jpg" alt="">
-      <img src="img2.jpg" alt="">
-      <img src="img3.jpg" alt="">
-      <img src="img4.jpg" alt="">
-      <img src="img5.jpg" alt="">
+      <img src="img1.jpg">
+      <img src="img2.jpg">
+      <img src="img3.jpg">
+      <img src="img4.jpg">
+      <img src="img5.jpg">
     </div>
   </div>
 
   <script>
     const messages = [
-      "Some people don’t try… yet still stand out.",
-      "You feel like calm in a noisy world.",
-      "There’s something about your presence that stays.",
+      "Some presence doesn’t need attention to be felt.",
+      "You feel like calm that stays without effort.",
       "Not loud, not forced… just naturally noticeable.",
-      "You don’t need attention. You already have it.",
-      "Some energy is hard to explain, but easy to feel.",
-      "You leave a quiet impression without trying.",
-      "It’s strange how some people stay in thought.",
-      "You feel like a soft kind of rare.",
-      "Nothing exaggerated… just real presence.",
+      "Some people become a feeling, not just a memory.",
+      "You don’t try to stand out, yet you do.",
+      "There’s something quietly different about you.",
+      "It’s not easy to explain… but it’s easy to feel.",
+      "And somehow… you stay in thought longer than expected.",
       "Yeah… you’re one of those."
     ];
 
-    let index = 0;
-    const el = document.getElementById("changing-message");
+    let i = 0;
+    const el = document.getElementById("msg");
 
-    function type(text, i = 0) {
-      if (i === 0) el.innerHTML = "";
+    function type(text, index = 0) {
+      if (index === 0) el.innerHTML = "";
 
-      if (i < text.length) {
-        el.innerHTML = text.substring(0, i + 1) + "<span class='cursor'></span>";
-        setTimeout(() => type(text, i + 1), 45);
+      if (index < text.length) {
+        el.innerHTML = text.substring(0, index + 1) + "<span class='cursor'></span>";
+        setTimeout(() => type(text, index + 1), 45);
       }
     }
 
-    function nextMessage() {
-      type(messages[index]);
+    function loop() {
+      type(messages[i]);
 
-      index = (index + 1) % messages.length;
+      i = (i + 1) % messages.length;
 
       let delay = 6000;
-      if (index > 3) delay = 7000;
-      if (index > 7) delay = 8000;
+      if (i > 3) delay = 7000;
 
-      setTimeout(nextMessage, delay);
+      setTimeout(loop, delay);
     }
 
-    nextMessage();
+    loop();
   </script>
 
 </body>
