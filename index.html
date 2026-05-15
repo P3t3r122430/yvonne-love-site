@@ -27,14 +27,16 @@
       position:relative;
     }
 
-    /* background glow */
+    /* glow */
     .glow{
       position:absolute;
-      width:600px;
-      height:600px;
-      background:radial-gradient(circle, rgba(0,255,200,0.12), transparent 70%);
+      width:700px;
+      height:700px;
+      background:
+      radial-gradient(circle,
+      rgba(0,255,200,0.13),
+      transparent 70%);
       filter:blur(40px);
-      z-index:0;
       animation:pulseGlow 5s infinite ease-in-out;
     }
 
@@ -43,8 +45,9 @@
         transform:scale(1);
         opacity:0.6;
       }
+
       50%{
-        transform:scale(1.15);
+        transform:scale(1.12);
         opacity:1;
       }
     }
@@ -53,6 +56,7 @@
     .scanlines{
       position:absolute;
       inset:0;
+
       background:
       repeating-linear-gradient(
         to bottom,
@@ -61,8 +65,9 @@
         transparent 1px,
         transparent 3px
       );
+
       pointer-events:none;
-      z-index:3;
+      z-index:10;
     }
 
     /* particles */
@@ -73,96 +78,67 @@
       background:#00ffcc;
       border-radius:50%;
       opacity:0.4;
-      animation:float 12s linear infinite;
+      animation:float linear infinite;
     }
 
     @keyframes float{
       from{
         transform:translateY(100vh);
       }
+
       to{
         transform:translateY(-10vh);
       }
     }
 
     .container{
-      text-align:center;
-      max-width:950px;
-      padding:30px;
       position:relative;
-      z-index:5;
-      animation:fadeIn 2s ease;
+      z-index:20;
+      width:90%;
+      max-width:900px;
     }
 
-    @keyframes fadeIn{
-      from{
-        opacity:0;
-        transform:translateY(15px);
-      }
+    /* boot sequence */
+    .boot{
+      font-size:18px;
+      line-height:1.9;
+      opacity:0.9;
+      margin-bottom:30px;
+    }
+
+    .boot-line{
+      opacity:0;
+      animation:showLine 0.5s forwards;
+    }
+
+    @keyframes showLine{
       to{
         opacity:1;
-        transform:translateY(0);
       }
     }
 
-    .glitch{
-      font-size:22px;
+    /* main message */
+    .main-message{
+      font-size:23px;
       line-height:1.8;
       position:relative;
 
       text-shadow:
       0 0 5px rgba(0,255,200,0.5),
-      0 0 20px rgba(0,255,200,0.25);
+      0 0 20px rgba(0,255,200,0.2);
 
-      animation:flicker 4s infinite;
+      opacity:0;
+      transform:translateY(10px);
+
+      transition:1s ease;
     }
 
-    .glitch::before,
-    .glitch::after{
-      content:attr(data-text);
-      position:absolute;
-      left:0;
-      width:100%;
-      overflow:hidden;
-      opacity:0.35;
-    }
-
-    .glitch::before{
-      color:#ff0055;
-      transform:translate(-1px);
-      animation:glitchA 3s infinite linear alternate-reverse;
-    }
-
-    .glitch::after{
-      color:#00aaff;
-      transform:translate(1px);
-      animation:glitchB 2s infinite linear alternate-reverse;
-    }
-
-    @keyframes glitchA{
-      0%{clip-path: inset(0 0 80% 0);}
-      50%{clip-path: inset(30% 0 40% 0);}
-      100%{clip-path: inset(70% 0 10% 0);}
-    }
-
-    @keyframes glitchB{
-      0%{clip-path: inset(75% 0 5% 0);}
-      50%{clip-path: inset(15% 0 55% 0);}
-      100%{clip-path: inset(0 0 90% 0);}
-    }
-
-    @keyframes flicker{
-      0%,100%{
-        opacity:1;
-      }
-      50%{
-        opacity:0.82;
-      }
+    .main-message.active{
+      opacity:1;
+      transform:translateY(0);
     }
 
     .cursor{
-      display:inline-block;
-      width:10px;
       animation:blink 0.8s infinite;
     }
 
@@ -172,26 +148,56 @@
       }
     }
 
-    .tag{
-      margin-top:20px;
-      font-size:11px;
-      letter-spacing:4px;
-      opacity:0.5;
+    /* glitch burst */
+    .glitching{
+      animation:glitchFlash 0.15s infinite;
     }
 
+    @keyframes glitchFlash{
+      0%{
+        transform:translate(0);
+      }
+
+      25%{
+        transform:translate(-2px,1px);
+      }
+
+      50%{
+        transform:translate(2px,-1px);
+      }
+
+      75%{
+        transform:translate(-1px,-1px);
+      }
+
+      100%{
+        transform:translate(0);
+      }
+    }
+
+    /* bottom code */
     .bottom-code{
       position:absolute;
-      bottom:40px;
+      bottom:35px;
       width:100%;
       text-align:center;
+
       font-size:18px;
       letter-spacing:6px;
-      opacity:0.65;
+      opacity:0.6;
 
       text-shadow:
       0 0 10px rgba(0,255,200,0.35);
 
-      z-index:5;
+      z-index:30;
+    }
+
+    /* terminal tag */
+    .tag{
+      margin-top:18px;
+      font-size:11px;
+      letter-spacing:4px;
+      opacity:0.45;
     }
 
   </style>
@@ -215,15 +221,14 @@
 
   <div class="container">
 
-    <div class="glitch"
-      data-text=":::::::::>... Parents are only strict when they know their product is attractive">
+    <div class="boot" id="boot"></div>
 
-      :::::::::>... Parents are only strict when they know their product is attractive<span class="cursor">_</span>
+    <div class="main-message" id="mainMessage">
+      <span id="decrypt"></span><span class="cursor">_</span>
 
-    </div>
-
-    <div class="tag">
-      // encrypted signal stable //
+      <div class="tag">
+        // encrypted signal stable //
+      </div>
     </div>
 
   </div>
@@ -231,6 +236,124 @@
   <div class="bottom-code">
     %@**#& #^*!+
   </div>
+
+  <script>
+
+    /* boot sequence */
+    const bootLines = [
+      "INITIALIZING VOIDCIPHER...",
+      "ROUTING SIGNAL THROUGH NODE...",
+      "VERIFYING MEMORY CACHE...",
+      "DECRYPTION ENGINE ACTIVE...",
+      "SIGNAL RECOVERED",
+      "ACCESS GRANTED"
+    ];
+
+    const bootContainer = document.getElementById("boot");
+
+    let bootIndex = 0;
+
+    function showBootLine(){
+
+      if(bootIndex < bootLines.length){
+
+        const line = document.createElement("div");
+
+        line.classList.add("boot-line");
+
+        line.textContent = "> " + bootLines[bootIndex];
+
+        bootContainer.appendChild(line);
+
+        bootIndex++;
+
+        setTimeout(showBootLine, 700);
+
+      }else{
+
+        setTimeout(startDecrypt, 1200);
+
+      }
+
+    }
+
+    showBootLine();
+
+    /* decrypt text */
+    const finalText =
+    ":::::::::>... Parents are only strict when they know their product is attractive";
+
+    const chars =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@#$%&*!";
+
+    const decryptEl = document.getElementById("decrypt");
+
+    const mainMessage = document.getElementById("mainMessage");
+
+    function randomChar(){
+      return chars[Math.floor(Math.random() * chars.length)];
+    }
+
+    function startDecrypt(){
+
+      mainMessage.classList.add("active");
+
+      let iteration = 0;
+
+      const interval = setInterval(() => {
+
+        decryptEl.innerText =
+        finalText
+        .split("")
+        .map((letter,index) => {
+
+          if(index < iteration){
+            return finalText[index];
+          }
+
+          if(letter === " "){
+            return " ";
+          }
+
+          return randomChar();
+
+        })
+        .join("");
+
+        iteration += 1 / 2;
+
+        if(iteration >= finalText.length){
+
+          clearInterval(interval);
+
+          decryptEl.innerText = finalText;
+
+          randomGlitch();
+
+        }
+
+      },35);
+
+    }
+
+    /* random glitch bursts */
+    function randomGlitch(){
+
+      setInterval(() => {
+
+        mainMessage.classList.add("glitching");
+
+        setTimeout(() => {
+
+          mainMessage.classList.remove("glitching");
+
+        },150);
+
+      },5000);
+
+    }
+
+  </script>
 
 </body>
 </html>
